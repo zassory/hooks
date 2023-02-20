@@ -1,18 +1,37 @@
-import {useState} from "react";
+import {Fragment, useState} from "react";
 
-export const ClassCounter = () => {
+export const HookCounter = () => {
     
     const [count,setCount] = useState(0);
+    const [list,setList] = useState([]);
+        
+    const handleClick = () => setCount(count + 1);
+    
+    const handleAddArray = () => {
+        setList([...list,{name:'Nicolas'}]);
+    };
 
-    handleClick = () => this.setState({count: this.state.count + 1});
+    const handleUpdateArray = () => {
+        const nameToUpdate = 'Nicolas';
+        const newName = 'Vladimir';
 
-    render() {
-        const {count} = this.state;
-        return (
-            <>
-                <p>Clicks: {count}</p>
-                <button onClick={this.handleClick}>Clickeame</button>
-            </>
-        );
-    }
-}
+        const newList = list.map((element)=> {
+            if(element.name === nameToUpdate){
+                return {...element,name:newName};
+            }
+            return element;
+        });
+        setList(newList);
+    };
+        
+    return (
+        <Fragment>
+            <div>
+                <button onClick={handleClick}>+1</button>
+                <button onClick={handleAddArray}>Add to Array</button>
+                <button onClick={handleUpdateArray}>Add to Array</button>
+            </div>
+        </Fragment>
+    );
+    
+};
